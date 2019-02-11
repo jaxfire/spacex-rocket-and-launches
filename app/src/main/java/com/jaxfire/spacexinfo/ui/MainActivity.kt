@@ -6,9 +6,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.jaxfire.spacexinfo.R
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+interface ToolbarTitleListener {
+    fun updateTitle(title: String)
+}
+
+class MainActivity : AppCompatActivity(), ToolbarTitleListener {
 
     private lateinit var navController: NavController
 
@@ -24,5 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
+    }
+
+    override fun updateTitle(title: String) {
+        supportActionBar?.title = title
     }
 }

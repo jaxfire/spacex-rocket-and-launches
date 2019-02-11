@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.jaxfire.spacexinfo.R
+import com.jaxfire.spacexinfo.ui.ToolbarTitleListener
 
 class RocketDetailFragment : Fragment() {
 
@@ -19,8 +20,7 @@ class RocketDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        activity?.title = "Rocket Name"
-
+        (activity as ToolbarTitleListener).updateTitle("replace me")
         return inflater.inflate(R.layout.rocket_detail_fragment, container, false)
     }
 
@@ -29,5 +29,4 @@ class RocketDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(RocketDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }
