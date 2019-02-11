@@ -15,13 +15,18 @@ import retrofit2.http.Query
 
 interface SpaceXApiService {
 
+    // TODO: Move filters to request Interceptor
+
     @GET("rockets")
-    fun getAllRockets(): Deferred<RocketsResponse>
+    fun getAllRockets(
+        @Query("filter") filter: String = "rocket_name,country,engines/number,active,description,rocket_id"
+    ): Deferred<List<RocketsResponse>>
 
     @GET("launches")
     fun getLaunchesForRocket(
-        @Query("rocket_id") rocketId: String
-    ): Deferred<LaunchesResponse>
+        @Query("rocket_id") rocketId: String,
+        @Query("filter") filter: String = "launch_year,mission_name,launch_date_utc,launch_success,links/mission_patch_small"
+    ): Deferred<List<LaunchesResponse>>
 
     companion object {
         operator fun invoke(): SpaceXApiService {
