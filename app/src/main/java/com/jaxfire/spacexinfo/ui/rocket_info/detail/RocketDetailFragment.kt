@@ -8,7 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.jaxfire.spacexinfo.R
+import com.jaxfire.spacexinfo.data.SpaceXApiService
 import com.jaxfire.spacexinfo.ui.ToolbarTitleListener
+import kotlinx.android.synthetic.main.rocket_detail_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class RocketDetailFragment : Fragment() {
 
@@ -28,5 +33,13 @@ class RocketDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RocketDetailViewModel::class.java)
         // TODO: Use the ViewModel
+
+        val apiService = SpaceXApiService()
+
+        GlobalScope.launch(Dispatchers.Main) {
+//            val rocketsResponse = apiService.getAllRockets().await()
+            val launchesResponse = apiService.getLaunchesForRocket("falcon1").await()
+            tvDetail.text = launchesResponse[0].toString()
+        }
     }
 }
