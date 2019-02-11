@@ -9,18 +9,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.jaxfire.spacexinfo.R
-import kotlinx.android.synthetic.main.future_list_weather_fragment.view.*
+import kotlinx.android.synthetic.main.rocket_list_fragment.view.*
 
-class FutureListWeatherFragment : Fragment() {
+class RocketListFragment : Fragment() {
 
     companion object {
-        fun newInstance() = FutureListWeatherFragment()
+        fun newInstance() = RocketListFragment()
     }
 
-    private lateinit var viewModel: FutureListWeatherViewModel
+    private lateinit var viewModel: RocketListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.future_list_weather_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.rocket_list_fragment, container, false)
 
         val options = navOptions {
             anim {
@@ -32,7 +32,7 @@ class FutureListWeatherFragment : Fragment() {
         }
 
         rootView.myButton.setOnClickListener {
-            findNavController().navigate(R.id.futureDetailWeather, null, options)
+            findNavController().navigate(R.id.rocketDetail, null, options)
         }
 
         return rootView
@@ -40,7 +40,7 @@ class FutureListWeatherFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(FutureListWeatherViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(RocketListViewModel::class.java)
         // TODO: Use the ViewModel
 
 

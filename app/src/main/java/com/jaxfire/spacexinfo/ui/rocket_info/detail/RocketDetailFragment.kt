@@ -9,24 +9,24 @@ import android.view.ViewGroup
 
 import com.jaxfire.spacexinfo.R
 
-class FutureDetailWeatherFragment : Fragment() {
+class RocketDetailFragment : Fragment() {
 
     companion object {
-        fun newInstance() = FutureDetailWeatherFragment()
+        fun newInstance() = RocketDetailFragment()
     }
 
-    private lateinit var viewModel: FutureDetailWeatherViewModel
+    private lateinit var viewModel: RocketDetailViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         activity?.title = "Rocket Name"
 
-        return inflater.inflate(R.layout.future_detail_weather_fragment, container, false)
+        return inflater.inflate(R.layout.rocket_detail_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(FutureDetailWeatherViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(RocketDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

@@ -1,4 +1,4 @@
-package com.jaxfire.spacexinfo.data
+package com.jaxfire.spacexinfo.data.response
 
 import com.google.gson.annotations.SerializedName
 
