@@ -8,30 +8,30 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="futureDetailWeather">
+                  <entry key="rocketDetail">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="261" />
-                            <option name="y" value="10" />
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="futureListWeather">
+                  <entry key="rocketList">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="2" />
-                            <option name="y" value="4" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_futureListWeather_to_futureDetailWeather">
+                            <entry key="action_rocketList_to_rocketDetail">
                               <value>
                                 <LayoutPositions />
                               </value>
