@@ -1,8 +1,8 @@
 package com.jaxfire.spacexinfo.data
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.jaxfire.spacexinfo.data.response.LaunchesResponse
-import com.jaxfire.spacexinfo.data.response.RocketsResponse
+import com.jaxfire.spacexinfo.data.network.response.LaunchesResponse
+import com.jaxfire.spacexinfo.data.network.response.RocketsResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
