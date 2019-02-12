@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import com.jaxfire.spacexinfo.R
 import com.jaxfire.spacexinfo.ui.base.ScopedFragment
@@ -42,7 +42,7 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
             }
         }
         myButton.setOnClickListener {
-            findNavController().navigate(R.id.rocketDetail, null, options)
+            navToRocketDetailScreen("falcon9", myButton)
         }
         bindUI()
     }
@@ -53,5 +53,10 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
             if (it == null || it.isEmpty()) return@Observer
             textViewList.text = it[0].toString()
         })
+    }
+
+    private fun navToRocketDetailScreen(rocketId: String, view: View) {
+        val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId)
+        Navigation.findNavController(view).navigate(actionDetail)
     }
 }

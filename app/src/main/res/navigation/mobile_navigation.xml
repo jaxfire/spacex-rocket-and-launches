@@ -23,6 +23,10 @@
             android:id="@+id/rocketDetail"
             android:name="com.jaxfire.spacexinfo.ui.rocket_info.detail.RocketDetailFragment"
             android:label="Detail"
-            tools:layout="@layout/rocket_detail_fragment"/>
+            tools:layout="@layout/rocket_detail_fragment">
+        <argument
+                android:name="rocketId"
+                app:argType="string"/>
+    </fragment>
 
 </navigation>
