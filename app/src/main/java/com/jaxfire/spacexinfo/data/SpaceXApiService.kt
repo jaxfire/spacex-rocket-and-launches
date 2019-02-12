@@ -10,22 +10,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-// https://api.spacexdata.com/v3/rockets
-// https://api.spacexdata.com/v3/launches
-
 interface SpaceXApiService {
 
     // TODO: Move filters to request Interceptor
 
-    @GET("rockets")
+    @GET("rockets?filter=rocket_name,country,engines/number,active,description,rocket_id")
     fun getAllRockets(
-        @Query("filter") filter: String = "rocket_name,country,engines/number,active,description,rocket_id"
     ): Deferred<List<RocketsResponse>>
 
-    @GET("launches")
+    @GET("launches?filter=launch_year,mission_name,launch_date_utc,launch_success,links/mission_patch_small")
     fun getLaunchesForRocket(
-        @Query("rocket_id") rocketId: String,
-        @Query("filter") filter: String = "launch_year,mission_name,launch_date_utc,launch_success,links/mission_patch_small"
+        @Query("rocket_id") rocketId: String
     ): Deferred<List<LaunchesResponse>>
 
     companion object {
