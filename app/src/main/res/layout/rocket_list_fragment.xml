@@ -6,19 +6,8 @@
         android:layout_height="match_parent"
         tools:context=".ui.rocket_info.list.RocketListFragment">
 
-    <TextView
-            android:id="@+id/textViewList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="LIST"/>
-
-    <Button
-            android:id="@+id/myButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="See Detail"/>
-
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rocketListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </RelativeLayout>

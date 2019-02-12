@@ -1,6 +1,7 @@
 package com.jaxfire.spacexinfo.ui.rocket_info.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaxfire.spacexinfo.R
 import com.jaxfire.spacexinfo.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.rocket_list_fragment.*
@@ -39,7 +41,10 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         val rockets = viewModel.rockets.await()
         rockets.observe(this@RocketListFragment, Observer {
             if (it == null || it.isEmpty()) return@Observer
-            textViewList.text = it[0].toString()
+            rocketListRecyclerView.layoutManager = LinearLayoutManager(context)
+            rocketListRecyclerView.adapter = RocketListAdapter(context, it) { rocketResponse ->
+                navToRocketDetailScreen(rocketResponse.rocketId, rocketListRecyclerView)
+            }
         })
     }
 
