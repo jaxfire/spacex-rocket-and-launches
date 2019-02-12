@@ -38,6 +38,8 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
         viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(rocketId))
             .get(RocketDetailViewModel::class.java)
 
+        // TODO: Get individual rocket using the rocket_id
+
         (activity as? AppCompatActivity)?.supportActionBar?.title = "Rocket Name Here"
 
         bindUI()
