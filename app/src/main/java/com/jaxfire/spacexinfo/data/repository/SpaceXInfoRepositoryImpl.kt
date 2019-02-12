@@ -1,5 +1,6 @@
 package com.jaxfire.spacexinfo.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.jaxfire.spacexinfo.data.db.LaunchesDao
 import com.jaxfire.spacexinfo.data.db.RocketDao
@@ -68,6 +69,9 @@ class SpaceXInfoRepositoryImpl(
         GlobalScope.launch(Dispatchers.IO) {
 
             // TODO: Convert response objects to db entities here?
+            launches.forEach {
+                if (it.links.missionPatchSmall == null) it.links.missionPatchSmall = "No image available"
+            }
             launchesDao.insertLaunches(launches)
         }
     }

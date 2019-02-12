@@ -32,7 +32,7 @@ data class LaunchResponse(
 ) {
     data class Links(
         @SerializedName("mission_patch_small")
-        var missionPatchSmall: String = "No image available"
+        var missionPatchSmall: String
     )
     data class Rocket(
         @SerializedName("rocket_id")
