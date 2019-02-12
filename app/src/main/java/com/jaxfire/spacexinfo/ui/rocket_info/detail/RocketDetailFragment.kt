@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 
 import com.jaxfire.spacexinfo.R
-import com.jaxfire.spacexinfo.data.SpaceXApiService
+import com.jaxfire.spacexinfo.data.network.SpaceXApiService
+import com.jaxfire.spacexinfo.data.network.ConnectivityInterceptorImpl
+import com.jaxfire.spacexinfo.data.network.SpaceXInfoNetworkDataSourceImpl
 import com.jaxfire.spacexinfo.ui.ToolbarTitleListener
 import kotlinx.android.synthetic.main.rocket_detail_fragment.*
 import kotlinx.coroutines.Dispatchers
@@ -34,12 +37,15 @@ class RocketDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(RocketDetailViewModel::class.java)
         // TODO: Use the ViewModel
 
-        val apiService = SpaceXApiService()
+        val apiService = SpaceXApiService(ConnectivityInterceptorImpl(this.context!!))
+        val spaceXInfoNetworkDataSource = SpaceXInfoNetworkDataSourceImpl(apiService)
+
+        spaceXInfoNetworkDataSource.downloadedRockets.observe(this, Observer {
+            tvDetail.text = it[0].toString()
+        })
 
         GlobalScope.launch(Dispatchers.Main) {
-//            val rocketsResponse = apiService.getAllRockets().await()
-            val launchesResponse = apiService.getLaunchesForRocket("falcon1").await()
-            tvDetail.text = launchesResponse[0].toString()
+            spaceXInfoNetworkDataSource.fetchRockets()
         }
     }
 }
