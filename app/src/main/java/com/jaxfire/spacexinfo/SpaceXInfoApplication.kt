@@ -6,11 +6,13 @@ import com.jaxfire.spacexinfo.data.db.SpaceXInfoDatabase_Impl
 import com.jaxfire.spacexinfo.data.network.*
 import com.jaxfire.spacexinfo.data.repository.SpaceXInfoRepository
 import com.jaxfire.spacexinfo.data.repository.SpaceXInfoRepositoryImpl
+import com.jaxfire.spacexinfo.ui.rocket_info.list.RocketListViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
 
@@ -25,5 +27,6 @@ class SpaceXInfoApplication : Application(), KodeinAware {
         bind() from singleton { SpaceXApiService(instance()) }
         bind<SpaceXInfoNetworkDataSource>() with singleton { SpaceXInfoNetworkDataSourceImpl(instance()) }
         bind<SpaceXInfoRepository>() with singleton { SpaceXInfoRepositoryImpl(instance(), instance()) }
+        bind() from provider { RocketListViewModelFactory(instance()) }
     }
 }

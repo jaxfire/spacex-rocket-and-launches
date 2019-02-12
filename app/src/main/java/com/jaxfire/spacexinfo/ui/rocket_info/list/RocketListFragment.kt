@@ -4,23 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.jaxfire.spacexinfo.R
-import kotlinx.android.synthetic.main.rocket_list_fragment.view.*
+import com.jaxfire.spacexinfo.ui.base.ScopedFragment
+import kotlinx.android.synthetic.main.rocket_list_fragment.*
+import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-class RocketListFragment : Fragment() {
+class RocketListFragment : ScopedFragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() = RocketListFragment()
-    }
+    override val kodein by closestKodein()
+
+    private val viewModelFactory: RocketListViewModelFactory by instance()
 
     private lateinit var viewModel: RocketListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.rocket_list_fragment, container, false)
+        return inflater.inflate(R.layout.rocket_list_fragment, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(RocketListViewModel::class.java)
 
         val options = navOptions {
             anim {
@@ -30,20 +41,17 @@ class RocketListFragment : Fragment() {
                 popExit = R.anim.exit_to_right
             }
         }
-
-        rootView.myButton.setOnClickListener {
+        myButton.setOnClickListener {
             findNavController().navigate(R.id.rocketDetail, null, options)
         }
-
-        return rootView
+        bindUI()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RocketListViewModel::class.java)
-        // TODO: Use the ViewModel
-
-
+    private fun bindUI() = launch {
+        val rockets = viewModel.rockets.await()
+        rockets.observe(this@RocketListFragment, Observer {
+            if (it == null || it.isEmpty()) return@Observer
+            textViewList.text = it[0].toString()
+        })
     }
-
 }
