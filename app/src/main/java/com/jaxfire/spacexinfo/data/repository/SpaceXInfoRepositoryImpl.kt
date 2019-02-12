@@ -20,6 +20,7 @@ class SpaceXInfoRepositoryImpl(
             persistFetchedRockets(newRockets)
         }
     }
+
     override suspend fun getRockets(): LiveData<List<RocketResponse>> {
         // withContext returns a value
         return withContext(Dispatchers.IO) {
@@ -31,7 +32,8 @@ class SpaceXInfoRepositoryImpl(
     private fun persistFetchedRockets(rockets: List<RocketResponse>) {
         // Global scope is okay in Repository as will exist for the lifetime of the application.
         GlobalScope.launch(Dispatchers.IO) {
-            rockets.forEach { rocketDao.upsertRocket(it) } // TODO: Check if each upsert should be on a separate thread
+            rocketDao.deleteAll()
+            rocketDao.insertRockets(rockets)
         }
     }
 
