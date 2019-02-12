@@ -42,7 +42,7 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
             }
         }
         myButton.setOnClickListener {
-            navToRocketDetailScreen("falcon9", myButton)
+            navToRocketDetailScreen("falcon1", myButton)
         }
         bindUI()
     }

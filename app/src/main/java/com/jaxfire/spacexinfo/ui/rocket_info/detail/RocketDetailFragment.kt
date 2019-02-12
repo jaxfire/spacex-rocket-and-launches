@@ -1,29 +1,28 @@
 package com.jaxfire.spacexinfo.ui.rocket_info.detail
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-
+import androidx.lifecycle.ViewModelProviders
 import com.jaxfire.spacexinfo.R
-import com.jaxfire.spacexinfo.data.network.SpaceXApiService
-import com.jaxfire.spacexinfo.data.network.ConnectivityInterceptorImpl
-import com.jaxfire.spacexinfo.data.network.SpaceXInfoNetworkDataSourceImpl
-import com.jaxfire.spacexinfo.ui.ToolbarTitleListener
+import com.jaxfire.spacexinfo.internal.RocketIdNotFoundException
+import com.jaxfire.spacexinfo.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.rocket_detail_fragment.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.factory
 
-class RocketDetailFragment : Fragment() {
+class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() = RocketDetailFragment()
-    }
+    override val kodein by closestKodein()
+
+    // Factory which creates a viewModelFactory
+    private val viewModelFactoryInstanceFactory
+            : ((String) -> RocketDetailViewModelFactory) by factory()
 
     private lateinit var viewModel: RocketDetailViewModel
 
@@ -33,8 +32,22 @@ class RocketDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RocketDetailViewModel::class.java)
+
+        val safeArgs = arguments?.let { RocketDetailFragmentArgs.fromBundle(it) }
+        val rocketId = safeArgs?.rocketId ?: throw RocketIdNotFoundException()
+        viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(rocketId))
+            .get(RocketDetailViewModel::class.java)
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = "Rocket Name Here"
+
+        bindUI()
+    }
+
+    private fun bindUI() = launch {
+        val rockets = viewModel.launches.await()
+        rockets.observe(this@RocketDetailFragment, Observer {
+            if (it == null || it.isEmpty()) return@Observer
+            textViewDetail.text = it[0].toString()
+        })
     }
 }
