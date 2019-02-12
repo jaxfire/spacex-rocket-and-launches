@@ -13,7 +13,7 @@ import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 interface RocketDao {
 
     @Query("SELECT * FROM rocket_table")
-    fun getAllRockets(): LiveData<RocketResponse>
+    fun getAllRockets(): LiveData<List<RocketResponse>>
 
 //    @Query("SELECT * FROM launch WHERE rocket_rocketId = :rocketId")
 //    fun getLaunches(rocketId: String)
