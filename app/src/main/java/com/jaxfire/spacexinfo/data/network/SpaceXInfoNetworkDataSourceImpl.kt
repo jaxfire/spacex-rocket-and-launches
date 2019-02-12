@@ -22,7 +22,8 @@ class SpaceXInfoNetworkDataSourceImpl(
                 .await()
             _downloadedRockets.postValue(fetchedRockets)
         } catch (e: NoConnectivityException) {
-            Log.e("Connectivity", "No internet connection", e) // TODO: Update the UI / notify the user
+            Log.e("Connectivity", "No internet connection", e)
+            // TODO: Update the UI / notify the user. 2nd live data to display 'No internet' message?
         }
     }
 }
