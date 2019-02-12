@@ -45,6 +45,6 @@ class SpaceXInfoRepositoryImpl(
     }
 
     private fun isFetchRocketsNeeded(): Boolean {
-        return rocketDao.getAllRockets().value!!.isEmpty() // TODO: Will live data be null if not initially set?
+        return rocketDao.getRocketCount() == 0
     }
 }
