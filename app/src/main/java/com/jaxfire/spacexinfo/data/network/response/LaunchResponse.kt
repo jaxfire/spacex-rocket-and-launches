@@ -32,7 +32,7 @@ data class LaunchResponse(
 ) {
     data class Links(
         @SerializedName("mission_patch_small")
-        val missionPatchSmall: String
+        var missionPatchSmall: String = "No image available"
     )
 
     data class Rocket(
