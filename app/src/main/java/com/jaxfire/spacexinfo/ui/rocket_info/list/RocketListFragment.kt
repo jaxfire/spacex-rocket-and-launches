@@ -32,18 +32,6 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(RocketListViewModel::class.java)
-
-        val options = navOptions {
-            anim {
-                enter = R.anim.enter_from_right
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.enter_from_left
-                popExit = R.anim.exit_to_right
-            }
-        }
-        myButton.setOnClickListener {
-            navToRocketDetailScreen("falcon1", myButton)
-        }
         bindUI()
     }
 
@@ -57,6 +45,14 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
 
     private fun navToRocketDetailScreen(rocketId: String, view: View) {
         val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId)
-        Navigation.findNavController(view).navigate(actionDetail)
+        val options = navOptions {
+            anim {
+                enter = R.anim.enter_from_right
+                exit = R.anim.exit_to_left
+                popEnter = R.anim.enter_from_left
+                popExit = R.anim.exit_to_right
+            }
+        }
+        Navigation.findNavController(view).navigate(actionDetail, options)
     }
 }

@@ -34,7 +34,6 @@ data class LaunchResponse(
         @SerializedName("mission_patch_small")
         var missionPatchSmall: String = "No image available"
     )
-
     data class Rocket(
         @SerializedName("rocket_id")
         val rocketId: String
