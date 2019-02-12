@@ -18,6 +18,8 @@ interface RocketDao {
 //    @Query("SELECT * FROM launch WHERE rocket_rocketId = :rocketId")
 //    fun getLaunches(rocketId: String)
 
+    // TODO: Do we need upsert if we are going to delete all data anyway?
+
     // TODO: Before release. Check if still have no foreign keys in our tables.
     // REPLACE will work fine as we have no foreign keys in our tables.
     @Insert(onConflict = OnConflictStrategy.REPLACE)
