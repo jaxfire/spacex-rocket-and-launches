@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 
 const val ROCKET_JSON_MASK_FILTER = "rocket_name,country,engines/number,active,description,rocket_id"
-const val LAUNCH_JSON_MASK__FILTER = "flight_number,rocket_id,launch_year,mission_name,launch_date_utc,launch_success,links/mission_patch_small"
+const val LAUNCH_JSON_MASK__FILTER = "flight_number,rocket/rocket_id,launch_year,mission_name,launch_date_utc,launch_success,links/mission_patch_small"
 
 interface SpaceXApiService {
 

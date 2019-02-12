@@ -12,6 +12,7 @@ import com.jaxfire.spacexinfo.data.network.response.RocketResponse
     version = 1)
 abstract class SpaceXInfoDatabase : RoomDatabase() {
     abstract fun rocketDao(): RocketDao
+    abstract fun launchesDao(): LaunchesDao
 
     companion object {
         @Volatile private var instance: SpaceXInfoDatabase? = null
