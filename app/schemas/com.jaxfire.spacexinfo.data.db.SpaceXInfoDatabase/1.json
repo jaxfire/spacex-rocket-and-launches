@@ -1,0 +1,119 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "297a357ff9cd485b2dbd06a92d3a06f3",
+    "entities": [
+      {
+        "tableName": "rocket_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rocketId` TEXT NOT NULL, `rocketName` TEXT NOT NULL, `active` INTEGER NOT NULL, `country` TEXT NOT NULL, `description` TEXT NOT NULL, `engines_number` INTEGER NOT NULL, PRIMARY KEY(`rocketId`))",
+        "fields": [
+          {
+            "fieldPath": "rocketId",
+            "columnName": "rocketId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rocketName",
+            "columnName": "rocketName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "engines.number",
+            "columnName": "engines_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "rocketId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "launch_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`flightNumber` INTEGER NOT NULL, `missionName` TEXT NOT NULL, `launchDateUtc` TEXT NOT NULL, `launchSuccess` INTEGER NOT NULL, `launchYear` TEXT NOT NULL, `links_missionPatchSmall` TEXT NOT NULL, `rocket_rocketId` TEXT NOT NULL, PRIMARY KEY(`flightNumber`))",
+        "fields": [
+          {
+            "fieldPath": "flightNumber",
+            "columnName": "flightNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "missionName",
+            "columnName": "missionName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "launchDateUtc",
+            "columnName": "launchDateUtc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "launchSuccess",
+            "columnName": "launchSuccess",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "launchYear",
+            "columnName": "launchYear",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "links.missionPatchSmall",
+            "columnName": "links_missionPatchSmall",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rocket.rocketId",
+            "columnName": "rocket_rocketId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "flightNumber"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"297a357ff9cd485b2dbd06a92d3a06f3\")"
+    ]
+  }
+}
