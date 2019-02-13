@@ -1,7 +1,6 @@
 package com.jaxfire.spacexinfo.ui.rocket_info.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,9 +41,10 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         rockets.observe(this@RocketListFragment, Observer {
             if (it == null || it.isEmpty()) return@Observer
             rocketListRecyclerView.layoutManager = LinearLayoutManager(context)
-            rocketListRecyclerView.adapter = RocketListAdapter(context, it) { rocketResponse ->
-                navToRocketDetailScreen(rocketResponse.rocketId, rocketListRecyclerView)
-            }
+            rocketListRecyclerView.adapter =
+                RocketListAdapter(context, it) { rocketResponse ->
+                    navToRocketDetailScreen(rocketResponse.rocketId, rocketListRecyclerView)
+                }
         })
     }
 

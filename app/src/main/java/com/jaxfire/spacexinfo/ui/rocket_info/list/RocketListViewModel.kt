@@ -10,6 +10,6 @@ class RocketListViewModel(
 
     // TODO: Review the lazy logic here
     val rockets by lazyDeferred {
-        spaceXInfoRepository.getRockets()
+        spaceXInfoRepository.getAllRockets()
     }
 }
