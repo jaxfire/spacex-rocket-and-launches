@@ -13,4 +13,8 @@ class RocketDetailViewModel(
     val launches by lazyDeferred {
         spaceXInfoRepository.getLaunchesForRocket(rocketId)
     }
+
+    val rocket by lazyDeferred {
+        spaceXInfoRepository.getRocket(rocketId)
+    }
 }

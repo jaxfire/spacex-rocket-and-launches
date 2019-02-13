@@ -22,7 +22,7 @@ class SpaceXInfoRepositoryImpl(
         // TODO
 //        rocketDao.deleteAll()
 //        launchesDao.deleteAll()
-//        getRockets()
+//        getAllRockets()
     }
 
     init {
@@ -37,13 +37,19 @@ class SpaceXInfoRepositoryImpl(
         }
     }
 
-    override suspend fun getRockets(): LiveData<List<RocketResponse>> {
+    override suspend fun getAllRockets(): LiveData<List<RocketResponse>> {
         // withContext returns a value
         return withContext(Dispatchers.IO) {
             initRocketData()
             return@withContext rocketDao.getAllRockets()
-            // TODO: Active rocket filter
-            // return@withContext if (activeRocketsFilter) rocketDao.getAllRockets() else rocketDao.getActiveRockets()
+        }
+    }
+
+    override suspend fun getRocket(rocketId: String): LiveData<RocketResponse> {
+        // withContext returns a value
+        return withContext(Dispatchers.IO) {
+//            initRocketData()
+            return@withContext rocketDao.getRocket(rocketId)
         }
     }
 

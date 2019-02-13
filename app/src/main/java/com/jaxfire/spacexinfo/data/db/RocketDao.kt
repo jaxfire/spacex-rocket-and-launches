@@ -15,6 +15,9 @@ interface RocketDao {
     @Query("SELECT * FROM rocket_table")
     fun getAllRocketsNonLive(): List<RocketResponse>
 
+    @Query("SELECT * FROM rocket_table WHERE rocketId = :rocketId")
+    fun getRocket(rocketId: String): LiveData<RocketResponse>
+
     @Query("SELECT * FROM rocket_table")
     fun getAllRockets(): LiveData<List<RocketResponse>>
 
