@@ -48,9 +48,10 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
         val safeArgs = arguments?.let { RocketDetailFragmentArgs.fromBundle(it) }
         val rocketId = safeArgs?.rocketId ?: throw RocketIdNotFoundException()
+        val rocketName = safeArgs?.rocketName // TODO: Store in ViewModel in case configuration change.
         viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(rocketId))
             .get(RocketDetailViewModel::class.java)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = ""
+        (activity as? AppCompatActivity)?.supportActionBar?.title = rocketName
         bindUI()
     }
 
@@ -135,7 +136,6 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
         val rocket = viewModel.rocket.await()
         rocket.observe(this@RocketDetailFragment, Observer {
             if (it == null) return@Observer
-            (activity as? AppCompatActivity)?.supportActionBar?.title = it.rocketName
             rocket_detail_fragment_text_view_description_content.text = it.description
         })
     }
@@ -143,7 +143,6 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
 class ValueFormatter
     () : IAxisValueFormatter, IValueFormatter {
-
 
     // format values to 1 decimal digit
     private val mFormat: DecimalFormat = DecimalFormat("#")

@@ -26,6 +26,9 @@
         <argument
                 android:name="rocketId"
                 app:argType="string"/>
+        <argument
+                android:name="rocketName"
+                app:argType="string"/>
     </fragment>
 
 </navigation>

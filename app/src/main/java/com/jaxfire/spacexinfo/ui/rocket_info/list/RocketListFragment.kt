@@ -43,13 +43,13 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
             rocketListRecyclerView.layoutManager = LinearLayoutManager(context)
             rocketListRecyclerView.adapter =
                 RocketListAdapter(context, it) { rocketResponse ->
-                    navToRocketDetailScreen(rocketResponse.rocketId, rocketListRecyclerView)
+                    navToRocketDetailScreen(rocketResponse.rocketId, rocketResponse.rocketName, rocketListRecyclerView)
                 }
         })
     }
 
-    private fun navToRocketDetailScreen(rocketId: String, view: View) {
-        val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId)
+    private fun navToRocketDetailScreen(rocketId: String, rocketName: String, view: View) {
+        val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId, rocketName)
         val options = navOptions {
             anim {
                 enter = R.anim.enter_from_right
