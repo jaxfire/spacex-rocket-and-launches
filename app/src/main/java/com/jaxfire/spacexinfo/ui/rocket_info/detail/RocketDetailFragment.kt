@@ -48,10 +48,8 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
         val safeArgs = arguments?.let { RocketDetailFragmentArgs.fromBundle(it) }
         val rocketId = safeArgs?.rocketId ?: throw RocketIdNotFoundException()
-        val rocketName = safeArgs?.rocketName // TODO: Store in ViewModel in case configuration change.
         viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(rocketId))
             .get(RocketDetailViewModel::class.java)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = rocketName
         bindUI()
     }
 
@@ -114,7 +112,7 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
             line_chart.axisLeft.granularity = 1f
 //            line_chart.axisRight.axisMinimum = 2000f
 
-            line_chart.setVisibleXRangeMaximum(7f)
+//            line_chart.setVisibleXRangeMaximum(6f)
 
             line_chart.isDragEnabled = true
 
