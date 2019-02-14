@@ -8,9 +8,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaxfire.spacexinfo.R
 import com.jaxfire.spacexinfo.ui.base.ScopedFragment
+import kotlinx.android.synthetic.main.rocket_detail_fragment.*
 import kotlinx.android.synthetic.main.rocket_list_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -40,11 +42,15 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         val rockets = viewModel.rockets.await()
         rockets.observe(this@RocketListFragment, Observer {
             if (it == null || it.isEmpty()) return@Observer
-            rocketListRecyclerView.layoutManager = LinearLayoutManager(context)
+
+            val linearLayoutManager = LinearLayoutManager(context)
+            rocketListRecyclerView.layoutManager = linearLayoutManager
             rocketListRecyclerView.adapter =
                 RocketListAdapter(context, it) { rocketResponse ->
                     navToRocketDetailScreen(rocketResponse.rocketId, rocketResponse.rocketName, rocketListRecyclerView)
                 }
+            val divider = DividerItemDecoration(rocketListRecyclerView.context, linearLayoutManager.orientation)
+            rocketListRecyclerView.addItemDecoration(divider)
         })
     }
 
