@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -55,7 +56,8 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun navToRocketDetailScreen(rocketId: String, rocketName: String, view: View) {
-        val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId, rocketName)
+        (activity as? AppCompatActivity)?.supportActionBar?.title = rocketName
+        val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId)
         Navigation.findNavController(view).navigate(actionDetail)
     }
 }
