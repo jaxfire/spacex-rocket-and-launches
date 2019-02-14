@@ -1,6 +1,5 @@
 package com.jaxfire.spacexinfo.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.jaxfire.spacexinfo.data.db.LaunchesDao
 import com.jaxfire.spacexinfo.data.db.RocketDao
@@ -48,7 +47,6 @@ class SpaceXInfoRepositoryImpl(
     override suspend fun getRocket(rocketId: String): LiveData<RocketResponse> {
         // withContext returns a value
         return withContext(Dispatchers.IO) {
-//            initRocketData()
             return@withContext rocketDao.getRocket(rocketId)
         }
     }

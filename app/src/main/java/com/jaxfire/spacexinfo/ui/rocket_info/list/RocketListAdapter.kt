@@ -12,25 +12,30 @@ import kotlinx.android.synthetic.main.rocket_list_item.view.*
 
 class RocketListAdapter(
     val context: Context?,
-    private val items: List<RocketResponse>,
+    private var rockets: List<RocketResponse>,
     private val clickListener: (RocketResponse) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
+
+    fun setData(newRockets: List<RocketResponse>) {
+        rockets = newRockets
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.rocket_list_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvName?.text = items[position].rocketName
-        holder.tvCountry?.text = items[position].country
-        holder.tvEngineCount?.text = items[position].engines.number.toString()
+        holder.tvName?.text = rockets[position].rocketName
+        holder.tvCountry?.text = rockets[position].country
+        holder.tvEngineCount?.text = rockets[position].engines.number.toString()
         holder.container.setOnClickListener {
-            clickListener(items[position])
+            clickListener(rockets[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return rockets.size
     }
 }
 

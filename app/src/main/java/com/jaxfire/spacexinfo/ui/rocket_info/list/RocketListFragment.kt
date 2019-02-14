@@ -11,10 +11,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.jaxfire.spacexinfo.R
+import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 import com.jaxfire.spacexinfo.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.rocket_detail_fragment.*
 import kotlinx.android.synthetic.main.rocket_list_fragment.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -28,6 +31,10 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
 
     private lateinit var viewModel: RocketListViewModel
 
+    private lateinit var rocketListAdapter: RocketListAdapter
+
+    private lateinit var latestRocketData: List<RocketResponse>
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.rocket_list_fragment, container, false)
     }
@@ -39,20 +46,30 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         bindUI()
     }
 
+    private var filterActive = false
+
     private fun bindUI() = launch {
         val rockets = viewModel.rockets.await()
         rockets.observe(this@RocketListFragment, Observer {
             if (it == null || it.isEmpty()) return@Observer
-
+            latestRocketData = it
             val linearLayoutManager = LinearLayoutManager(context)
             rocketListRecyclerView.layoutManager = linearLayoutManager
-            rocketListRecyclerView.adapter =
-                RocketListAdapter(context, it) { rocketResponse ->
-                    navToRocketDetailScreen(rocketResponse.rocketId, rocketResponse.rocketName, rocketListRecyclerView)
-                }
+            rocketListAdapter = RocketListAdapter(context, it.filter { if (filterActive) it.active else true }) { rocketResponse ->
+                navToRocketDetailScreen(rocketResponse.rocketId, rocketResponse.rocketName, rocketListRecyclerView)
+            }
+            rocketListRecyclerView.adapter = rocketListAdapter
+
             val divider = DividerItemDecoration(rocketListRecyclerView.context, linearLayoutManager.orientation)
             rocketListRecyclerView.addItemDecoration(divider)
         })
+
+        fab.setOnClickListener { view ->
+            filterActive = !filterActive
+            rocketListAdapter.setData(latestRocketData.filter { if (filterActive) it.active else true })
+        }
+
+//        swip
     }
 
     private fun navToRocketDetailScreen(rocketId: String, rocketName: String, view: View) {
