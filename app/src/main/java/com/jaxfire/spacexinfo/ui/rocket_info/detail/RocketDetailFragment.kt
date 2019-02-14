@@ -108,13 +108,23 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
             val description = Description()
             description.text = ""
             line_chart.description = description
-            line_chart.setTouchEnabled(false)
+            line_chart.setTouchEnabled(true)
 //            line_chart.getAxis(YAxis.AxisDependency)
             line_chart.axisLeft.axisMinimum = 0f
+            line_chart.axisLeft.granularity = 1f
 //            line_chart.axisRight.axisMinimum = 2000f
+
+            line_chart.setVisibleXRangeMaximum(7f)
+
+            line_chart.isDragEnabled = true
+
+            line_chart.moveViewToX(dataSet.entryCount.toFloat())
 
             line_chart.xAxis.setDrawAxisLine(true)
             line_chart.xAxis.setDrawGridLines(true)
+//            line_chart.offsetTopAndBottom(20)
+
+
             line_chart.xAxis.granularity = 1f
             line_chart.xAxis.textSize = 10f
             line_chart.xAxis.valueFormatter = ValueFormatter()
