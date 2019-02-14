@@ -56,14 +56,6 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
 
     private fun navToRocketDetailScreen(rocketId: String, rocketName: String, view: View) {
         val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId, rocketName)
-        val options = navOptions {
-            anim {
-                enter = R.anim.enter_from_right
-                exit = R.anim.exit_to_left
-                popEnter = R.anim.enter_from_left
-                popExit = R.anim.exit_to_right
-            }
-        }
-        Navigation.findNavController(view).navigate(actionDetail, options)
+        Navigation.findNavController(view).navigate(actionDetail)
     }
 }
