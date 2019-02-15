@@ -13,4 +13,10 @@ class RocketListViewModel(
     val rockets by lazyDeferred {
         spaceXInfoRepository.getAllRockets()
     }
+
+    val isDownloading = spaceXInfoRepository.isDownloading()
+
+    fun refreshData() {
+        spaceXInfoRepository.refreshData()
+    }
 }

@@ -49,19 +49,27 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
     private var filterActive = false
 
     private fun bindUI() = launch {
+
+        val linearLayoutManager = LinearLayoutManager(context)
+        rocketListRecyclerView.layoutManager = linearLayoutManager
+        val divider = DividerItemDecoration(rocketListRecyclerView.context, linearLayoutManager.orientation)
+        rocketListRecyclerView.addItemDecoration(divider)
+
         val rockets = viewModel.rockets.await()
         rockets.observe(this@RocketListFragment, Observer {
-            if (it == null || it.isEmpty()) return@Observer
+            if (it == null) return@Observer
+            rocketListRecyclerView.visibility = if (it.isEmpty()) View.INVISIBLE else View.VISIBLE
             latestRocketData = it
-            val linearLayoutManager = LinearLayoutManager(context)
-            rocketListRecyclerView.layoutManager = linearLayoutManager
+
             rocketListAdapter = RocketListAdapter(context, it.filter { if (filterActive) it.active else true }) { rocketResponse ->
                 navToRocketDetailScreen(rocketResponse.rocketId, rocketResponse.rocketName, rocketListRecyclerView)
             }
             rocketListRecyclerView.adapter = rocketListAdapter
+        })
 
-            val divider = DividerItemDecoration(rocketListRecyclerView.context, linearLayoutManager.orientation)
-            rocketListRecyclerView.addItemDecoration(divider)
+        viewModel.isDownloading.observe(this@RocketListFragment, Observer {
+            if(it == null) return@Observer
+            swipe_container.isRefreshing = it
         })
 
         fab.setOnClickListener { view ->
@@ -69,7 +77,9 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
             rocketListAdapter.setData(latestRocketData.filter { if (filterActive) it.active else true })
         }
 
-//        swip
+        swipe_container.setOnRefreshListener {
+            viewModel.refreshData()
+        }
     }
 
     private fun navToRocketDetailScreen(rocketId: String, rocketName: String, view: View) {

@@ -17,15 +17,21 @@ class SpaceXInfoRepositoryImpl(
     private val spaceXInfoNetworkDataSource: SpaceXInfoNetworkDataSource
 ) : SpaceXInfoRepository {
 
-    override suspend fun refreshData() {
-        // TODO
-//        rocketDao.deleteAll()
-//        launchesDao.deleteAll()
-//        getAllRockets()
+
+    private val isDownloading = spaceXInfoNetworkDataSource.isDownloading
+
+    override fun isDownloading(): LiveData<Boolean> = isDownloading
+
+    override fun refreshData() {
+        GlobalScope.launch(Dispatchers.IO) {
+            rocketDao.deleteAll()
+            launchesDao.deleteAll()
+            spaceXInfoNetworkDataSource.fetchRockets()
+        }
     }
 
     init {
-        // observeForever is okay in Repository as will exist for the lifetime of the application.
+        // observeForever is okay in repository as will exist for the lifetime of the application.
         spaceXInfoNetworkDataSource.apply {
             downloadedRockets.observeForever { newRockets ->
                 persistFetchedRockets(newRockets)

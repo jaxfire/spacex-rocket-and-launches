@@ -6,8 +6,9 @@ import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 
 
 interface SpaceXInfoRepository {
+    fun isDownloading(): LiveData<Boolean>
     suspend fun getRocket(rocketId: String): LiveData<RocketResponse>
     suspend fun getAllRockets(): LiveData<List<RocketResponse>>
     suspend fun getLaunchesForRocket(rocketId: String): LiveData<List<LaunchResponse>>
-    suspend fun refreshData()
+    fun refreshData()
 }

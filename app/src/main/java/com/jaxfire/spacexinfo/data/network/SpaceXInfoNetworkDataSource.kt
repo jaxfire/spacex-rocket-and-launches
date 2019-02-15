@@ -6,6 +6,7 @@ import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 
 
 interface SpaceXInfoNetworkDataSource {
+    val isDownloading: LiveData<Boolean>
     val downloadedRockets: LiveData<List<RocketResponse>>
     val downloadedLaunches: LiveData<List<LaunchResponse>>
 
