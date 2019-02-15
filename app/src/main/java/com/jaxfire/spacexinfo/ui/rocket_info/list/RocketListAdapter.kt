@@ -4,9 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jaxfire.spacexinfo.R
 import com.jaxfire.spacexinfo.data.network.response.RocketResponse
+import com.jaxfire.spacexinfo.internal.RocketResponseDiffCallback
 import kotlinx.android.synthetic.main.rocket_list_item.view.*
 
 
@@ -17,8 +19,11 @@ class RocketListAdapter(
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     fun setData(newRockets: List<RocketResponse>) {
+
+        val diffCallBack = RocketResponseDiffCallback(rockets, newRockets)
+        val diffResult = DiffUtil.calculateDiff(diffCallBack)
         rockets = newRockets
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

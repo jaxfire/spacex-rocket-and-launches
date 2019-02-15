@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.launch_list_item.view.*
 
 class LaunchListAdapter(
     val context: Context?,
-    private val items: List<LaunchResponse>
+    private var items: List<LaunchResponse>
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,6 +40,11 @@ class LaunchListAdapter(
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun setData(it: List<LaunchResponse>) {
+        items = it
+        notifyDataSetChanged()
     }
 }
 

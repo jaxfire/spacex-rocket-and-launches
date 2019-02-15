@@ -8,16 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.jaxfire.spacexinfo.R
 import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 import com.jaxfire.spacexinfo.ui.base.ScopedFragment
-import kotlinx.android.synthetic.main.rocket_detail_fragment.*
 import kotlinx.android.synthetic.main.rocket_list_fragment.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -55,16 +51,18 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         val divider = DividerItemDecoration(rocketListRecyclerView.context, linearLayoutManager.orientation)
         rocketListRecyclerView.addItemDecoration(divider)
 
+        rocketListAdapter = RocketListAdapter(context, listOf()) { rocketResponse ->
+            navToRocketDetailScreen(rocketResponse.rocketId, rocketResponse.rocketName, rocketListRecyclerView)
+        }
+        rocketListRecyclerView.adapter = rocketListAdapter
+
         val rockets = viewModel.rockets.await()
         rockets.observe(this@RocketListFragment, Observer {
             if (it == null) return@Observer
             rocketListRecyclerView.visibility = if (it.isEmpty()) View.INVISIBLE else View.VISIBLE
             latestRocketData = it
+            rocketListAdapter.setData(it)
 
-            rocketListAdapter = RocketListAdapter(context, it.filter { if (filterActive) it.active else true }) { rocketResponse ->
-                navToRocketDetailScreen(rocketResponse.rocketId, rocketResponse.rocketName, rocketListRecyclerView)
-            }
-            rocketListRecyclerView.adapter = rocketListAdapter
         })
 
         viewModel.isDownloading.observe(this@RocketListFragment, Observer {

@@ -54,21 +54,23 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun bindUI() = launch {
+
+        val linearLayoutManager = LinearLayoutManager(context)
+        rocket_detail_recyclerview.layoutManager = linearLayoutManager
+        val launchListAdapter = LaunchListAdapter(context, emptyList())
+        rocket_detail_recyclerview.adapter = launchListAdapter
+        val divider = DividerItemDecoration(rocket_detail_recyclerview.context, linearLayoutManager.orientation)
+        rocket_detail_recyclerview.addItemDecoration(divider)
+
         val launches = viewModel.launches.await()
         launches.observe(this@RocketDetailFragment, Observer {
             if (it == null || it.isEmpty()) {
                 rocket_detail_text_view__no_launches.visibility = View.VISIBLE
+                launchListAdapter.setData(it)
                 return@Observer
             }
 
             rocket_detail_text_view__no_launches.visibility = View.GONE
-
-            val linearLayoutManager = LinearLayoutManager(context)
-            rocket_detail_recyclerview.layoutManager = linearLayoutManager
-            rocket_detail_recyclerview.adapter = LaunchListAdapter(context, it)
-            val divider = DividerItemDecoration(rocket_detail_recyclerview.context, linearLayoutManager.orientation)
-            rocket_detail_recyclerview.addItemDecoration(divider)
-
 
             val yearsCount = mutableMapOf<String, Int>()
 
@@ -139,7 +141,6 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
 
         })
-
 
         val rocket = viewModel.rocket.await()
         rocket.observe(this@RocketDetailFragment, Observer {
