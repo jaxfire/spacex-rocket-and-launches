@@ -42,8 +42,6 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         bindUI()
     }
 
-    private var filterActive = false
-
     private fun bindUI() = launch {
 
         val linearLayoutManager = LinearLayoutManager(context)
@@ -61,8 +59,7 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
             if (it == null) return@Observer
             rocketListRecyclerView.visibility = if (it.isEmpty()) View.INVISIBLE else View.VISIBLE
             latestRocketData = it
-            rocketListAdapter.setData(it)
-
+            rocketListAdapter.setData(latestRocketData.filter { if (viewModel.filterActive) it.active else true })
         })
 
         viewModel.isDownloading.observe(this@RocketListFragment, Observer {
@@ -71,8 +68,8 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         })
 
         fab.setOnClickListener { view ->
-            filterActive = !filterActive
-            rocketListAdapter.setData(latestRocketData.filter { if (filterActive) it.active else true })
+            viewModel.filterActive = !viewModel.filterActive
+            rocketListAdapter.setData(latestRocketData.filter { if (viewModel.filterActive) it.active else true })
         }
 
         swipe_container.setOnRefreshListener {
