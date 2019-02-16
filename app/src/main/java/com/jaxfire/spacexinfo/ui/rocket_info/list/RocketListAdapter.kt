@@ -35,7 +35,7 @@ class RocketListAdapter(
         holder.tvCountry?.text = rockets[position].country
         holder.tvEngineCount?.text = rockets[position].engines.number.toString()
         holder.container.setOnClickListener {
-            clickListener(rockets[position])
+            clickListener(rockets[holder.layoutPosition])
         }
     }
 
