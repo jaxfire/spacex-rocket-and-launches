@@ -16,7 +16,7 @@ const val LAUNCH_JSON_MASK__FILTER = "flight_number,rocket/rocket_id,launch_year
 
 interface SpaceXApiService {
 
-    @GET("allRockets?filter=$ROCKET_JSON_MASK_FILTER")
+    @GET("rockets?filter=$ROCKET_JSON_MASK_FILTER")
     fun getAllRockets(
     ): Deferred<List<RocketResponse>>
 

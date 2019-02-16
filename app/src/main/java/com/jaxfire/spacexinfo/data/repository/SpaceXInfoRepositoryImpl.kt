@@ -50,14 +50,6 @@ class SpaceXInfoRepositoryImpl(
         }
     }
 
-    override suspend fun getActiveRockets(): LiveData<List<RocketResponse>> {
-        // withContext returns a value
-        return withContext(Dispatchers.IO) {
-            initRocketData()
-            return@withContext rocketDao.getActiveRockets()
-        }
-    }
-
     override suspend fun getRocket(rocketId: String): LiveData<RocketResponse> {
         // withContext returns a value
         return withContext(Dispatchers.IO) {
