@@ -5,6 +5,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -21,30 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="8dp">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Country: "
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-        <TextView
-                android:id="@+id/rocket_list_item_text_view_country"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="8dp"
-                tools:text="01/01/2011"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="8dp"
+            android:paddingLeft="8dp"
             android:gravity="center_vertical">
 
         <TextView
@@ -58,8 +36,31 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="8dp"
+                android:paddingStart="8dp"
                 tools:text="9"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <TextView
+                android:id="@+id/rocket_list_item_text_view_country"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="01/01/2011"
+                android:paddingStart="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
     </LinearLayout>
