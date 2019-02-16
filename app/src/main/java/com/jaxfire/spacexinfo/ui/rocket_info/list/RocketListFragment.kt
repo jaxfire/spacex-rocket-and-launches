@@ -1,10 +1,15 @@
 package com.jaxfire.spacexinfo.ui.rocket_info.list
 
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -18,6 +23,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+
 
 class RocketListFragment : ScopedFragment(), KodeinAware {
 
@@ -39,7 +45,10 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(RocketListViewModel::class.java)
+
         bindUI()
+
+        handleWelcomeDialog()
     }
 
     private fun bindUI() = launch {
@@ -81,5 +90,27 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
         (activity as? AppCompatActivity)?.supportActionBar?.title = rocketName
         val actionDetail = RocketListFragmentDirections.actionRocketListToRocketDetail(rocketId)
         Navigation.findNavController(view).navigate(actionDetail)
+    }
+
+    private fun handleWelcomeDialog() {
+        val sharedPrefs = activity?.getSharedPreferences("application_prefs", Context.MODE_PRIVATE) ?: return
+        if (sharedPrefs.getBoolean("first_run", true)) {
+            with(sharedPrefs.edit()) {
+                putBoolean("first_run", false)
+                apply()
+            }
+            showWelcomeDialog()
+        }
+    }
+
+    private fun showWelcomeDialog() {
+
+        val builder = AlertDialog.Builder(this.context!!)
+        builder.setTitle("Welcome to SpaceXInfo")
+        builder.setMessage("You can Swipe-To-Refresh to get the latest information and you can filter only active rockets using the FAB.")
+        builder.setCancelable(true)
+        builder.setPositiveButton("Dismiss") { dialog, _ -> dialog.cancel() }
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 }
