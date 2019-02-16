@@ -68,77 +68,10 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
             if (it == null) return@Observer
             rocket_detail_recyclerview.visibility = if (it.isEmpty()) View.INVISIBLE else View.VISIBLE
-            rocket_detail_text_view__no_launches.visibility = if (it.isEmpty()) View.VISIBLE else View.INVISIBLE
+            rocket_detail_text_view__no_launches.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             launchListAdapter.setData(it)
 
-            rocket_detail_text_view__no_launches.visibility = View.GONE
-
-            val yearsCount = mutableMapOf<String, Int>()
-
-            val listOfYears = it.map { it.launchYear }.toMutableList()
-
-            val listOfValidYears = listOfYears.filter { yearStr ->
-                yearStr.toFloatOrNull() != null
-            }
-
-            listOfValidYears.forEach { year ->
-                yearsCount[year] = listOfYears.count { it == year }
-            }
-
-            val entries = mutableListOf<Entry>()
-            yearsCount.forEach { (key, value) ->
-                entries.add(Entry(key.toFloat(), value.toFloat()))
-            }
-
-            // TODO: Remove logging
-            entries.forEach {
-                Log.d("jim", "x: ${it.x} y: ${it.y}")
-            }
-
-            val dataSet = LineDataSet(entries, "Label")
-            dataSet.valueFormatter = ValueFormatter()
-            dataSet.valueTextSize = 12f
-            dataSet.color = R.color.space_x_blue
-//            dataSet.valueTextColor = R.color.pr
-
-            val lineData = LineData(dataSet)
-            line_chart.data = lineData
-            line_chart.setDrawGridBackground(false)
-            line_chart.setDrawBorders(false)
-            line_chart.legend.isEnabled = false
-            val description = Description()
-            description.text = ""
-            line_chart.description = description
-            line_chart.setTouchEnabled(false)
-//            line_chart.getAxis(YAxis.AxisDependency)
-            line_chart.axisLeft.axisMinimum = 0f
-            line_chart.axisLeft.granularity = 1f
-//            line_chart.axisRight.axisMinimum = 2000f
-
-//            line_chart.setVisibleXRangeMaximum(6f)
-
-            line_chart.isDragEnabled = true
-
-            line_chart.moveViewToX(dataSet.entryCount.toFloat())
-
-            line_chart.xAxis.setDrawAxisLine(true)
-            line_chart.xAxis.setDrawGridLines(true)
-//            line_chart.offsetTopAndBottom(20)
-
-
-            line_chart.xAxis.granularity = 1f
-            line_chart.xAxis.textSize = 10f
-            line_chart.xAxis.valueFormatter = ValueFormatter()
-
-            line_chart.axisLeft.isEnabled = false
-            line_chart.axisRight.isEnabled = false
-//            leftAxis.setDrawAxisLine(false)
-//            leftAxis.setDrawZeroLine(true)
-
-//            rightAxis.setDrawAxisLine(false)
-
-
-            line_chart.invalidate()
+            viewModel.updateChart(it, lineChart)
         })
 
         val rocket = viewModel.rocket.await()
@@ -149,23 +82,4 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
     }
 }
 
-class ValueFormatter
-    () : IAxisValueFormatter, IValueFormatter {
 
-    // format values to 1 decimal digit
-    private val mFormat: DecimalFormat = DecimalFormat("#")
-
-    /** this is only needed if numbers are returned, else return 0  */
-    val decimalDigits: Int
-        get() = 1
-
-    override fun getFormattedValue(value: Float, axis: AxisBase): String {
-        // "value" represents the position of the label on the axis (x or y)
-        return mFormat.format(value)
-    }
-
-    override fun getFormattedValue(value: Float, entry: Entry?, dataSetIndex: Int, viewPortHandler: ViewPortHandler?
-    ): String {
-        return mFormat.format(value)
-    }
-}
