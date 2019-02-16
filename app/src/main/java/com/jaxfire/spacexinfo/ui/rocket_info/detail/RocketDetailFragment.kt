@@ -26,6 +26,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.IValueFormatter
 import com.github.mikephil.charting.utils.ViewPortHandler
 import com.jaxfire.spacexinfo.R
+import kotlinx.android.synthetic.main.rocket_list_fragment.*
 import java.text.DecimalFormat
 
 
@@ -64,11 +65,11 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
         val launches = viewModel.launches.await()
         launches.observe(this@RocketDetailFragment, Observer {
-            if (it == null || it.isEmpty()) {
-                rocket_detail_text_view__no_launches.visibility = View.VISIBLE
-                launchListAdapter.setData(it)
-                return@Observer
-            }
+
+            if (it == null) return@Observer
+            rocket_detail_recyclerview.visibility = if (it.isEmpty()) View.INVISIBLE else View.VISIBLE
+            rocket_detail_text_view__no_launches.visibility = if (it.isEmpty()) View.VISIBLE else View.INVISIBLE
+            launchListAdapter.setData(it)
 
             rocket_detail_text_view__no_launches.visibility = View.GONE
 
@@ -138,8 +139,6 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
 
             line_chart.invalidate()
-
-
         })
 
         val rocket = viewModel.rocket.await()
