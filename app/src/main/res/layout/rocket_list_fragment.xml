@@ -4,27 +4,39 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.rocket_info.list.RocketListFragment"
         android:padding="8dp">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_container"
+    <ProgressBar
+            android:id="@+id/rocketListLoadingProgressSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rocketListRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rocketListRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fabFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/fabRefresh"
+            android:layout_alignParentEnd="true"
+            app:backgroundTint="@color/space_x_blue"
+            android:src="@drawable/ic_filter_list_white_24dp"
+            android:layout_marginEnd="16dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabRefresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_filter_list_white_24dp"
+            android:src="@drawable/ic_sync_white_24dp"
             android:layout_margin="16dp"/>
+
 </RelativeLayout>

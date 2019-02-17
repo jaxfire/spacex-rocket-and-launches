@@ -26,6 +26,8 @@ class RocketDetailViewModel(
         spaceXInfoRepository.getRocket(rocketId)
     }
 
+    val isDownloading = spaceXInfoRepository.isDownloading()
+
     fun updateChart(launchData: List<LaunchEntity>, lineChart: LineChart) {
 
         val dataSet = LineDataSet(createEntries(launchData), "Label")

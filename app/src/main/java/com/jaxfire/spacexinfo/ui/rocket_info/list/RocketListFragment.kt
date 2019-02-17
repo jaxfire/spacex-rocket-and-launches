@@ -70,16 +70,17 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
 
         viewModel.isDownloading.observe(this@RocketListFragment, Observer {
             if(it == null) return@Observer
-            swipe_container.isRefreshing = it
+            rocketListLoadingProgressSpinner.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
 
-        fab.setOnClickListener { view ->
+        fabFilter.setOnClickListener {
             viewModel.filterActive = !viewModel.filterActive
             rocketListAdapter.setData(latestRocketData.filter { if (viewModel.filterActive) it.active else true })
         }
 
-        swipe_container.setOnRefreshListener {
+        fabRefresh.setOnClickListener {
             viewModel.refreshData()
+            rocketListLoadingProgressSpinner.visibility = View.VISIBLE
         }
     }
 

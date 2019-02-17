@@ -70,7 +70,6 @@ class SpaceXInfoRepositoryImpl(
         // Global scope is okay in Repository as will exist for the lifetime of the application.
         GlobalScope.launch(Dispatchers.IO) {
 
-            // TODO: Convert response objects to db entities here
             rocketDao.deleteAll()
             rocketDao.insertRockets(rockets)
         }
@@ -79,11 +78,6 @@ class SpaceXInfoRepositoryImpl(
     private fun persistFetchedLaunches(launches: List<LaunchEntity>) {
         // Global scope is okay in Repository as will exist for the lifetime of the application.
         GlobalScope.launch(Dispatchers.IO) {
-
-            // TODO: Convert response objects to db entities here
-            launches.forEach {
-                if (it.links.missionPatchSmall == null) it.links.missionPatchSmall = "No image available"
-            }
             launchesDao.insertLaunches(launches)
         }
     }

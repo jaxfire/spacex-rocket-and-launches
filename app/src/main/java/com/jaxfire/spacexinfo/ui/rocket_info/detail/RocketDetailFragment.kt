@@ -49,6 +49,11 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
         val divider = DividerItemDecoration(rocket_detail_recyclerview.context, linearLayoutManager.orientation)
         rocket_detail_recyclerview.addItemDecoration(divider)
 
+        viewModel.isDownloading.observe(this@RocketDetailFragment, Observer {
+            if(it == null) return@Observer
+            rocketDetailLoadingProgressSpinner.visibility = if (it) View.VISIBLE else View.INVISIBLE
+        })
+
         val launches = viewModel.launches.await()
         launches.observe(this@RocketDetailFragment, Observer {
 
