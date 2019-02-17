@@ -3,6 +3,8 @@ package com.jaxfire.spacexinfo.data.repository
 import androidx.lifecycle.LiveData
 import com.jaxfire.spacexinfo.data.db.LaunchesDao
 import com.jaxfire.spacexinfo.data.db.RocketDao
+import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
+import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
 import com.jaxfire.spacexinfo.data.network.SpaceXInfoNetworkDataSource
 import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
 import com.jaxfire.spacexinfo.data.network.response.RocketResponse
@@ -42,7 +44,7 @@ class SpaceXInfoRepositoryImpl(
         }
     }
 
-    override suspend fun getAllRockets(): LiveData<List<RocketResponse>> {
+    override suspend fun getAllRockets(): LiveData<List<RocketEntity>> {
         // withContext returns a value
         return withContext(Dispatchers.IO) {
             initRocketData()
@@ -50,21 +52,21 @@ class SpaceXInfoRepositoryImpl(
         }
     }
 
-    override suspend fun getRocket(rocketId: String): LiveData<RocketResponse> {
+    override suspend fun getRocket(rocketId: String): LiveData<RocketEntity> {
         // withContext returns a value
         return withContext(Dispatchers.IO) {
             return@withContext rocketDao.getRocket(rocketId)
         }
     }
 
-    override suspend fun getLaunchesForRocket(rocketId: String): LiveData<List<LaunchResponse>> {
+    override suspend fun getLaunchesForRocket(rocketId: String): LiveData<List<LaunchEntity>> {
         return withContext(Dispatchers.IO) {
             initLaunchData(rocketId)
             return@withContext launchesDao.getLaunchesForRocket(rocketId)
         }
     }
 
-    private fun persistFetchedRockets(rockets: List<RocketResponse>) {
+    private fun persistFetchedRockets(rockets: List<RocketEntity>) {
         // Global scope is okay in Repository as will exist for the lifetime of the application.
         GlobalScope.launch(Dispatchers.IO) {
 
@@ -74,7 +76,7 @@ class SpaceXInfoRepositoryImpl(
         }
     }
 
-    private fun persistFetchedLaunches(launches: List<LaunchResponse>) {
+    private fun persistFetchedLaunches(launches: List<LaunchEntity>) {
         // Global scope is okay in Repository as will exist for the lifetime of the application.
         GlobalScope.launch(Dispatchers.IO) {
 

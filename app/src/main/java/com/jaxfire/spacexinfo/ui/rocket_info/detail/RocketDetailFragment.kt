@@ -1,19 +1,14 @@
 package com.jaxfire.spacexinfo.ui.rocket_info.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.jaxfire.spacexinfo.R
 import com.jaxfire.spacexinfo.internal.RocketIdNotFoundException
 import com.jaxfire.spacexinfo.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.rocket_detail_fragment.*
@@ -21,13 +16,6 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.factory
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.IValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
-import com.jaxfire.spacexinfo.R
-import kotlinx.android.synthetic.main.rocket_list_fragment.*
-import java.text.DecimalFormat
 
 
 class RocketDetailFragment : ScopedFragment(), KodeinAware {

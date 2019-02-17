@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
+import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
 import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
 import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 
 @Database(
-    entities = [RocketResponse::class, LaunchResponse::class],
+    entities = [RocketEntity::class, LaunchEntity::class],
     version = 1)
 abstract class SpaceXInfoDatabase : RoomDatabase() {
     abstract fun rocketDao(): RocketDao

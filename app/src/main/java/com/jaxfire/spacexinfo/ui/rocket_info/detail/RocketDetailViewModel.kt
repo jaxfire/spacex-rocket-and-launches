@@ -7,7 +7,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.jaxfire.spacexinfo.R
-import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
+import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
 import com.jaxfire.spacexinfo.data.repository.SpaceXInfoRepository
 import com.jaxfire.spacexinfo.internal.ChartValueFormatter
 import com.jaxfire.spacexinfo.internal.lazyDeferred
@@ -26,19 +26,14 @@ class RocketDetailViewModel(
         spaceXInfoRepository.getRocket(rocketId)
     }
 
-    fun updateChart(launchData: List<LaunchResponse>, lineChart: LineChart) {
-        val yearsCount = mutableMapOf<String, Int>()
-        val listOfYears = launchData.map { it.launchYear }.toMutableList()
-        val listOfValidYears = listOfYears.filter { yearStr -> yearStr.toFloatOrNull() != null }
-        listOfValidYears.forEach { year -> yearsCount[year] = listOfYears.count { it == year } }
-        val entries = mutableListOf<Entry>()
-        yearsCount.forEach { (key, value) -> entries.add(Entry(key.toFloat(), value.toFloat())) }
+    fun updateChart(launchData: List<LaunchEntity>, lineChart: LineChart) {
 
-        val dataSet = LineDataSet(entries, "Label")
+        val dataSet = LineDataSet(createEntries(launchData), "Label")
+
+        // Chart visual customisations
         dataSet.valueFormatter = ChartValueFormatter()
         dataSet.valueTextSize = 12f
         dataSet.color = R.color.space_x_blue
-
         val lineData = LineData(dataSet)
         lineChart.data = lineData
         lineChart.setDrawGridBackground(false)
@@ -60,5 +55,15 @@ class RocketDetailViewModel(
         lineChart.axisLeft.isEnabled = false
         lineChart.axisRight.isEnabled = false
         lineChart.invalidate()
+    }
+
+    private fun createEntries(launchData: List<LaunchEntity>): List<Entry> {
+        val yearsCount = mutableMapOf<String, Int>()
+        val listOfYears = launchData.map { it.launchYear }.toMutableList()
+        val listOfValidYears = listOfYears.filter { yearStr -> yearStr.toFloatOrNull() != null }
+        listOfValidYears.forEach { year -> yearsCount[year] = listOfYears.count { it == year } }
+        val entries = mutableListOf<Entry>()
+        yearsCount.forEach { (key, value) -> entries.add(Entry(key.toFloat(), value.toFloat())) }
+        return entries
     }
 }

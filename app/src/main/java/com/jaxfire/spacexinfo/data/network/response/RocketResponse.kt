@@ -1,14 +1,9 @@
 package com.jaxfire.spacexinfo.data.network.response
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "rocket_table")
 data class RocketResponse(
 
-    @PrimaryKey
     @SerializedName("rocket_id")
     val rocketId: String,
 
@@ -19,7 +14,6 @@ data class RocketResponse(
     val country: String,
     val description: String,
 
-    @Embedded(prefix = "engines_")
     val engines: Engines
 ) {
     data class Engines(

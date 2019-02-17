@@ -2,10 +2,10 @@ package com.jaxfire.spacexinfo.internal
 
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.DiffUtil
-import com.jaxfire.spacexinfo.data.network.response.RocketResponse
+import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
 
 
-class RocketResponseDiffCallback(private val mOldEmployeeList: List<RocketResponse>, private val mNewEmployeeList: List<RocketResponse>) :
+class RocketResponseDiffCallback(private val mOldEmployeeList: List<RocketEntity>, private val mNewEmployeeList: List<RocketEntity>) :
     DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

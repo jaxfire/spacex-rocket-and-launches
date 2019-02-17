@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jaxfire.spacexinfo.R
-import com.jaxfire.spacexinfo.data.network.response.RocketResponse
+import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
 import com.jaxfire.spacexinfo.internal.RocketResponseDiffCallback
 import kotlinx.android.synthetic.main.rocket_list_item.view.*
 
 
 class RocketListAdapter(
     val context: Context?,
-    private var rockets: List<RocketResponse>,
-    private val clickListener: (RocketResponse) -> Unit
+    private var rockets: List<RocketEntity>,
+    private val clickListener: (RocketEntity) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
 
-    fun setData(newRockets: List<RocketResponse>) {
+    fun setData(newRockets: List<RocketEntity>) {
 
         val diffCallBack = RocketResponseDiffCallback(rockets, newRockets)
         val diffResult = DiffUtil.calculateDiff(diffCallBack)

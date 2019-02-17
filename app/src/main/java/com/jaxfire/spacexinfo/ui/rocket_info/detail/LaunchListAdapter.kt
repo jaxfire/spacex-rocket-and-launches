@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jaxfire.spacexinfo.R
-import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
+import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
 import com.jaxfire.spacexinfo.internal.glide.GlideApp
 import kotlinx.android.synthetic.main.launch_list_item.view.*
 
 
 class LaunchListAdapter(
     val context: Context?,
-    private var items: List<LaunchResponse>
+    private var items: List<LaunchEntity>
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +42,7 @@ class LaunchListAdapter(
         return items.size
     }
 
-    fun setData(it: List<LaunchResponse>) {
+    fun setData(it: List<LaunchEntity>) {
         items = it
         notifyDataSetChanged()
     }

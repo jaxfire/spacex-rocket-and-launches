@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaxfire.spacexinfo.R
-import com.jaxfire.spacexinfo.data.network.response.RocketResponse
+import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
 import com.jaxfire.spacexinfo.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.rocket_list_fragment.*
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ class RocketListFragment : ScopedFragment(), KodeinAware {
 
     private lateinit var rocketListAdapter: RocketListAdapter
 
-    private lateinit var latestRocketData: List<RocketResponse>
+    private lateinit var latestRocketData: List<RocketEntity>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.rocket_list_fragment, container, false)
