@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.jaxfire.spacexinfo.R
 
-class MainActivity : AppCompatActivity() {
+class RocketInfoActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
