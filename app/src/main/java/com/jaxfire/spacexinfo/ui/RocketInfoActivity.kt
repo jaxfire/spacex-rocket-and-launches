@@ -13,7 +13,7 @@ class RocketInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.rocket_info_activity)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
