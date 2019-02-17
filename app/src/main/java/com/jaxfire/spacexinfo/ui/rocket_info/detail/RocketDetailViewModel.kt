@@ -27,7 +27,6 @@ class RocketDetailViewModel(
     }
 
     fun updateChart(launchData: List<LaunchResponse>, lineChart: LineChart) {
-
         val yearsCount = mutableMapOf<String, Int>()
         val listOfYears = launchData.map { it.launchYear }.toMutableList()
         val listOfValidYears = listOfYears.filter { yearStr -> yearStr.toFloatOrNull() != null }

@@ -46,7 +46,6 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val safeArgs = arguments?.let { RocketDetailFragmentArgs.fromBundle(it) }
         val rocketId = safeArgs?.rocketId ?: throw RocketIdNotFoundException()
         viewModel = ViewModelProviders.of(this, viewModelFactoryInstanceFactory(rocketId))
@@ -55,7 +54,6 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun bindUI() = launch {
-
         val linearLayoutManager = LinearLayoutManager(context)
         rocket_detail_recyclerview.layoutManager = linearLayoutManager
         val launchListAdapter = LaunchListAdapter(context, emptyList())
