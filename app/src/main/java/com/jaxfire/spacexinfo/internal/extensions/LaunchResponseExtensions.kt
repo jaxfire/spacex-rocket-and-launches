@@ -12,6 +12,6 @@ fun LaunchResponse.toLaunchEntity() = LaunchEntity(
     launchDateUtc = launchDateUtc,
     launchSuccess = launchSuccess,
     launchYear = launchYear,
-    links = LaunchEntity.Links(links.missionPatchSmall),
+    links = LaunchEntity.Links(links.missionPatchSmall ?: "No image available"),
     rocket = LaunchEntity.Rocket(rocket.rocketId)
 )
