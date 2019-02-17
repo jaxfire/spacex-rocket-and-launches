@@ -65,10 +65,19 @@ class RocketDetailFragment : ScopedFragment(), KodeinAware {
         launches.observe(this@RocketDetailFragment, Observer {
 
             if (it == null) return@Observer
-            rocket_detail_recyclerview.visibility = if (it.isEmpty()) View.INVISIBLE else View.VISIBLE
-            rocket_detail_text_view__no_launches.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            if (it.isEmpty()) {
+                rocket_detail_recyclerview.visibility = View.GONE
+                rocket_detail_text_view_launches_list_no_launch_data.visibility = View.VISIBLE
+                rocket_detail_text_view_launcher_per_year_no_launch_data.visibility = View.VISIBLE
+            } else {
+                lineChart.animate().alpha(1f).setDuration(1000).start()
+                rocket_detail_recyclerview.alpha = 0f
+                rocket_detail_recyclerview.visibility = View.VISIBLE
+                rocket_detail_recyclerview.animate().alpha(1f).setDuration(1000).start()
+                rocket_detail_text_view_launches_list_no_launch_data.visibility = View.GONE
+                rocket_detail_text_view_launcher_per_year_no_launch_data.visibility = View.GONE
+            }
             launchListAdapter.setData(it)
-
             viewModel.updateChart(it, lineChart)
         })
 
