@@ -30,7 +30,14 @@ class RocketDetailViewModel(
 
     fun updateChart(launchData: List<LaunchEntity>, lineChart: LineChart) {
 
-        val dataSet = LineDataSet(createEntries(launchData), "Label")
+        val yearsCount = mutableMapOf<String, Int>()
+        val listOfYears = launchData.map { it.launchYear }.toMutableList()
+        val listOfValidYears = listOfYears.filter { yearStr -> yearStr.toFloatOrNull() != null }
+        listOfValidYears.forEach { year -> yearsCount[year] = listOfYears.count { it == year } }
+        val entries = mutableListOf<Entry>()
+        yearsCount.forEach { (key, value) -> entries.add(Entry(key.toFloat(), value.toFloat())) }
+
+        val dataSet = LineDataSet(entries, "Label")
 
         // Chart visual customisations
         dataSet.valueFormatter = ChartValueFormatter()
@@ -51,21 +58,13 @@ class RocketDetailViewModel(
         lineChart.moveViewToX(dataSet.entryCount.toFloat())
         lineChart.xAxis.setDrawAxisLine(true)
         lineChart.xAxis.setDrawGridLines(true)
+        lineChart.xAxis.isGranularityEnabled = true
         lineChart.xAxis.granularity = 1f
+        lineChart.xAxis.labelCount = listOfYears.size
         lineChart.xAxis.textSize = 10f
         lineChart.xAxis.valueFormatter = ChartValueFormatter()
         lineChart.axisLeft.isEnabled = false
         lineChart.axisRight.isEnabled = false
         lineChart.invalidate()
-    }
-
-    private fun createEntries(launchData: List<LaunchEntity>): List<Entry> {
-        val yearsCount = mutableMapOf<String, Int>()
-        val listOfYears = launchData.map { it.launchYear }.toMutableList()
-        val listOfValidYears = listOfYears.filter { yearStr -> yearStr.toFloatOrNull() != null }
-        listOfValidYears.forEach { year -> yearsCount[year] = listOfYears.count { it == year } }
-        val entries = mutableListOf<Entry>()
-        yearsCount.forEach { (key, value) -> entries.add(Entry(key.toFloat(), value.toFloat())) }
-        return entries
     }
 }

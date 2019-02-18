@@ -9,18 +9,15 @@ import java.text.DecimalFormat
 
 
 class ChartValueFormatter
-    () : IAxisValueFormatter, IValueFormatter {
+    : IAxisValueFormatter, IValueFormatter {
 
     // format values to 1 decimal digit
     private val mFormat: DecimalFormat = DecimalFormat("#")
 
-    /** this is only needed if numbers are returned, else return 0  */
-    val decimalDigits: Int
-        get() = 1
-
     override fun getFormattedValue(value: Float, axis: AxisBase): String {
         // "value" represents the position of the label on the axis (x or y)
-        return mFormat.format(value)
+        val formattedStr = mFormat.format(value)
+        return if (formattedStr.length >= 2) "'${formattedStr.substring(formattedStr.length - 2)}" else formattedStr
     }
 
     override fun getFormattedValue(value: Float, entry: Entry?, dataSetIndex: Int, viewPortHandler: ViewPortHandler?
