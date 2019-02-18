@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SpacexInfo</string>
+    <string name="content_description_mission_patch">Mission Patch</string>
+    <string name="launch_list_item_launch_date_label">Launch Date:</string>
+    <string name="launch_list_item_mission_success_label">Mission Success:</string>
+    <string name="rocket_detail_launches_per_year_heading">Launches per year</string>
+    <string name="rocket_detail_no_launch_data_available">No launch data available</string>
+    <string name="rocket_detail_description_header">Description</string>
+    <string name="rocket_detail_launches_header">Launches</string>
+    <string name="rocket_list_engines_label">Engines:</string>
+    <string name="rocket_list_country_label">Country:</string>
 </resources>
