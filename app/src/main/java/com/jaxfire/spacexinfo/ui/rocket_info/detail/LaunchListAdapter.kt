@@ -4,6 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jaxfire.spacexinfo.R
@@ -22,11 +25,11 @@ class LaunchListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvMissionName?.text = items[position].missionName
+        holder.tvMissionName.text = items[position].missionName
 
         var launchDate = items[position].launchDateUtc
         launchDate = launchDate.indexOf('T').let { if (it == -1) launchDate else launchDate.substring(0, it) }
-        holder.tvLaunchDate?.text = launchDate
+        holder.tvLaunchDate.text = launchDate
         holder.ivMissionSuccess.setImageResource(if (items[position].launchSuccess) R.drawable.ic_check_blue_24dp else R.drawable.ic_cross_red_24dp)
 
         GlideApp.with(holder.container)
@@ -49,9 +52,9 @@ class LaunchListAdapter(
 }
 
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val tvMissionName = view.launch_list_item_text_view_mission_name
-    val tvLaunchDate = view.launch_list_item_text_view_launch_date
-    val ivMissionPatch = view.launch_list_item_image_view_mission_patch_image
-    val ivMissionSuccess = view.launch_list_item_image_view_launch_success
-    val container = view.launch_list_item_container
+    val tvMissionName: TextView = view.launch_list_item_text_view_mission_name
+    val tvLaunchDate: TextView = view.launch_list_item_text_view_launch_date
+    val ivMissionPatch: ImageView = view.launch_list_item_image_view_mission_patch_image
+    val ivMissionSuccess: ImageView = view.launch_list_item_image_view_launch_success
+    val container: LinearLayout = view.launch_list_item_container
 }

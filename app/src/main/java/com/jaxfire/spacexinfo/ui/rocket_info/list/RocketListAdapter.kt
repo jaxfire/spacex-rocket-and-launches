@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jaxfire.spacexinfo.R
@@ -45,8 +47,8 @@ class RocketListAdapter(
 }
 
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val tvName = view.rocket_list_item_text_view_name
-    val tvCountry = view.rocket_list_item_text_view_country
-    val tvEngineCount = view.rocket_list_item_text_view_engine_count
-    val container = view.rocket_list_item_container
+    val tvName: TextView = view.rocket_list_item_text_view_name
+    val tvCountry: TextView = view.rocket_list_item_text_view_country
+    val tvEngineCount: TextView = view.rocket_list_item_text_view_engine_count
+    val container: LinearLayout = view.rocket_list_item_container
 }

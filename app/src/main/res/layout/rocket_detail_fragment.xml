@@ -30,7 +30,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Launches per year"
+                    android:text="@string/rocket_detail_launches_per_year_heading"
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:textSize="24sp"
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:textAlignment="center"
-                        android:text="No launch data available"
+                        android:text="@string/rocket_detail_no_launch_data_available"
                         android:visibility="invisible"/>
 
             </RelativeLayout>
@@ -68,7 +68,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description"
+                    android:text="@string/rocket_detail_description_header"
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:textSize="24sp"
@@ -91,7 +91,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Launches"
+                    android:text="@string/rocket_detail_launches_header"
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:textSize="24sp"
@@ -112,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="No launch data available"
+                    android:text="@string/rocket_detail_no_launch_data_available"
                     android:visibility="invisible"/>
 
         </LinearLayout>

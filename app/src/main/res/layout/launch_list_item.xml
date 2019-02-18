@@ -19,7 +19,8 @@
             tools:srcCompat="@tools:sample/avatars"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:cropToPadding="false"/>
+            android:cropToPadding="false"
+            android:contentDescription="@string/content_description_mission_patch"/>
 
     <LinearLayout
             android:layout_width="0dp"
@@ -46,7 +47,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Launch Date: "
+                    android:text="@string/launch_list_item_launch_date_label"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
             <TextView
@@ -70,7 +71,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mission Success:"
+                    android:text="@string/launch_list_item_mission_success_label"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
             <Space
@@ -83,7 +84,8 @@
                     android:layout_height="wrap_content"
                     tools:srcCompat="@drawable/ic_check_blue_24dp"
                     android:adjustViewBounds="true"
-                    android:cropToPadding="true"/>
+                    android:cropToPadding="true"
+                    android:contentDescription="content_description_mission_success"/>
 
         </LinearLayout>
 
