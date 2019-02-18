@@ -2,7 +2,6 @@ package com.jaxfire.spacexinfo
 
 import android.app.Application
 import com.jaxfire.spacexinfo.data.db.SpaceXInfoDatabase
-import com.jaxfire.spacexinfo.data.db.SpaceXInfoDatabase_Impl
 import com.jaxfire.spacexinfo.data.network.*
 import com.jaxfire.spacexinfo.data.repository.SpaceXInfoRepository
 import com.jaxfire.spacexinfo.data.repository.SpaceXInfoRepositoryImpl

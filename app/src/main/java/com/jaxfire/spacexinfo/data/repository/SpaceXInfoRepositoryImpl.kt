@@ -6,8 +6,6 @@ import com.jaxfire.spacexinfo.data.db.RocketDao
 import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
 import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
 import com.jaxfire.spacexinfo.data.network.SpaceXInfoNetworkDataSource
-import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
-import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

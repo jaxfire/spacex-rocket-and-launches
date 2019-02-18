@@ -6,8 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
 import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
-import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
-import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 
 @Database(
     entities = [RocketEntity::class, LaunchEntity::class],

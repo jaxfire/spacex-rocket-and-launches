@@ -3,8 +3,6 @@ package com.jaxfire.spacexinfo.data.network
 import androidx.lifecycle.LiveData
 import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
 import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
-import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
-import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 
 
 interface SpaceXInfoNetworkDataSource {

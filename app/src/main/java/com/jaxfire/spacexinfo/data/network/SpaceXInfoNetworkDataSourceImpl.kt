@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.jaxfire.spacexinfo.data.db.entity.LaunchEntity
 import com.jaxfire.spacexinfo.data.db.entity.RocketEntity
-import com.jaxfire.spacexinfo.data.network.response.LaunchResponse
-import com.jaxfire.spacexinfo.data.network.response.RocketResponse
 import com.jaxfire.spacexinfo.internal.NoConnectivityException
 import com.jaxfire.spacexinfo.internal.extensions.toLaunchEntity
 import com.jaxfire.spacexinfo.internal.extensions.toRocketEntity
