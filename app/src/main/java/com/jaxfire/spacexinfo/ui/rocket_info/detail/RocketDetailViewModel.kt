@@ -17,7 +17,6 @@ class RocketDetailViewModel(
     private val rocketId: String
 ) : ViewModel() {
 
-    // TODO: Review the lazy logic here
     val launches by lazyDeferred {
         spaceXInfoRepository.getLaunchesForRocket(rocketId)
     }

@@ -32,7 +32,8 @@ class SpaceXInfoNetworkDataSourceImpl(
             _downloadedRockets.postValue(fetchedRockets.map { it.toRocketEntity() })
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection", e)
-            // TODO: Update the UI / notify the user. 2nd live data to display 'No internet' message?
+            // TODO: Update the UI / notify the user. 2nd live data to display 'No internet' message
+            _downloadedRockets.postValue(emptyList())
         }
     }
 
@@ -51,6 +52,7 @@ class SpaceXInfoNetworkDataSourceImpl(
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection", e)
             // TODO: Update the UI / notify the user. 2nd live data to display 'No internet' message?
+            _downloadedRockets.postValue(emptyList())
         }
     }
 }

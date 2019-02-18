@@ -11,7 +11,6 @@ class RocketListViewModel(
 
     var filterActive = false
 
-    // TODO: Review the lazy logic here
     val rockets by lazyDeferred {
         spaceXInfoRepository.getAllRockets()
     }

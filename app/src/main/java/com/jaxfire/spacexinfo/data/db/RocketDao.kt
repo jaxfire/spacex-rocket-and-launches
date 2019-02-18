@@ -19,7 +19,6 @@ interface RocketDao {
     @Query("SELECT * FROM rocket_table")
     fun getAllRockets(): LiveData<List<RocketEntity>>
 
-    // TODO: Test this out when active filter is implemented
     @Query("SELECT * FROM rocket_table WHERE active = 1")
     fun getActiveRockets(): LiveData<List<RocketEntity>>
 
